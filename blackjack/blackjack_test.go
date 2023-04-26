@@ -1,44 +1,44 @@
 package blackjack
 
-import "testing" 
+import (
+	"testing"
+)
 
-func TestParseCardNotFound(t *testing.T){
+func TestParseCardNotFound(t *testing.T) {
 
 	got := ParseCard("twenty")
-	want := -1
+	expected := -1
 
-	if got != want{
-		t.Errorf("got %q, wanted %q", got, want)
+	if got != expected {
+		t.Errorf("got %q, wanted %q", got, expected)
 	}
 }
-func TestParseCard(t *testing.T){
-	cases := []struct{
-		card string
+func TestParseCard(t *testing.T) {
+	cases := []struct {
+		card     string
 		expected int
 	}{
 		{
-			card: "nine",
-			expected: 9 ,
+			card:     "nine",
+			expected: 9,
 		},
 		{
-			card: "ace", 
+			card:     "ace",
 			expected: 11,
-
 		},
 		{
-			card: "king",
+			card:     "king",
 			expected: 10,
-
 		},
 		{
-			card: "two", 
+			card:     "two",
 			expected: 2,
 		},
 	}
 	for _, tc := range cases {
-		t.Run(tc.card, func(t *testing.T){
+		t.Run(tc.card, func(t *testing.T) {
 			result := ParseCard(tc.card)
-			if result != tc.expected{
+			if result != tc.expected {
 				t.Errorf(" expected %q, but got %q", tc.expected, result)
 			}
 		})
@@ -46,40 +46,124 @@ func TestParseCard(t *testing.T){
 }
 
 func TestFirstTurnSplit(t *testing.T) {
-	cases := []struct{
-		card1 string
-		card2 string
-		dealer string 
-		expected string 
+	got := FirstTurn("ace", "ace", "one")
+	expected := "P"
+	if got != expected {
+		t.Errorf("got %q, expected %q", got, expected)
+	}
+
+}
+
+func TestFirstTurnStand(t *testing.T) {
+	cases := []struct {
+		card1    string
+		card2    string
+		dealer   string
+		expected string
 	}{
 		{
-			card1: "ace",
-			card2: "king",
-			dealer: "one",
-			expected: "W",
-		},
-		{
-			card1: "ace",
-			card2: "ten",
-			dealer: "ten",
+			card1:    "ace",
+			card2:    "king",
+			dealer:   "ace",
 			expected: "S",
 		},
 		{
-			card1: "ace",
-			card2: "queen",
-			dealer: "ace",
+			card1:    "ace",
+			card2:    "ten",
+			dealer:   "ten",
+			expected: "S",
+		},
+		{
+			card1:    "ace",
+			card2:    "queen",
+			dealer:   "ace",
+			expected: "S",
+		},
+		{
+			card1:    "ten",
+			card2:    "seven",
+			dealer:   "eight",
+			expected: "S",
+		},
+		{
+			card1:    "four",
+			card2:    "eight",
+			dealer:   "six",
 			expected: "S",
 		},
 	}
-	for _, tc := range cases{
+	for _, tc := range cases {
 		t.Run(tc.card1, func(t *testing.T) {
 			result := FirstTurn(tc.card1, tc.card2, tc.dealer)
-			if result != tc.expected{
+			if result != tc.expected {
 				t.Errorf("expected %q =, but got %q", tc.expected, result)
 			}
 		})
 	}
 }
 
+func TestFirstTurnWin(t *testing.T) {
+	cases := []struct {
+		card1    string
+		card2    string
+		dealer   string
+		expected string
+	}{
+		{
+			card1:    "ace",
+			card2:    "ten",
+			dealer:   "two",
+			expected: "W",
+		},
+		{
+			card1:    "ace",
+			card2:    "jack",
+			dealer:   "six",
+			expected: "W",
+		},
+	}
+	for _, tc := range cases {
+		t.Run(tc.card1, func(t *testing.T) {
+			result := FirstTurn(tc.card1, tc.card2, tc.dealer)
+			if result != tc.expected {
+				t.Errorf("expected %q =, but got %q", tc.expected, result)
+			}
 
+		})
+	}
 
+}
+
+func TestFirstTurnHit(t *testing.T) {
+	cases := []struct {
+		card1    string
+		card2    string
+		dealer   string
+		expected string
+	}{
+		{
+			card1:    "seven",
+			card2:    "five",
+			dealer:   "ten",
+			expected: "H",
+		},
+		{
+			card1:    "eight",
+			card2:    "eight",
+			dealer:   "eight",
+			expected: "H",
+		},
+	}
+	for _, tc := range cases {
+		t.Run(tc.card1, func(t *testing.T) {
+			result := FirstTurn(tc.card1, tc.card2, tc.dealer)
+			if result != tc.expected {
+				t.Errorf("expected %q =, but got %q", tc.expected, result)
+			}
+		})
+
+	}
+
+}
+
+//win
