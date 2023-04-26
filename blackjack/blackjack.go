@@ -22,7 +22,7 @@ func ParseCard(card string) int {
 			return value
 		}
 	}
-	return -1
+	return 0
 }
 
 // FirstTurn returns the decision for the first turn, given two cards of the

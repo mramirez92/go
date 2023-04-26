@@ -7,7 +7,7 @@ import (
 func TestParseCardNotFound(t *testing.T) {
 
 	got := ParseCard("twenty")
-	expected := -1
+	expected := 0
 
 	if got != expected {
 		t.Errorf("got %q, wanted %q", got, expected)
@@ -166,4 +166,4 @@ func TestFirstTurnHit(t *testing.T) {
 
 }
 
-//win
+
