@@ -11,7 +11,6 @@ func TestParseCardNotFound(t *testing.T){
 		t.Errorf("got %q, wanted %q", got, want)
 	}
 }
-
 func TestParseCard(t *testing.T){
 	cases := []struct{
 		card string
@@ -45,3 +44,42 @@ func TestParseCard(t *testing.T){
 		})
 	}
 }
+
+func TestFirstTurnSplit(t *testing.T) {
+	cases := []struct{
+		card1 string
+		card2 string
+		dealer string 
+		expected string 
+	}{
+		{
+			card1: "ace",
+			card2: "king",
+			dealer: "one",
+			expected: "W",
+		},
+		{
+			card1: "ace",
+			card2: "ten",
+			dealer: "ten",
+			expected: "S",
+		},
+		{
+			card1: "ace",
+			card2: "queen",
+			dealer: "ace",
+			expected: "S",
+		},
+	}
+	for _, tc := range cases{
+		t.Run(tc.card1, func(t *testing.T) {
+			result := FirstTurn(tc.card1, tc.card2, tc.dealer)
+			if result != tc.expected{
+				t.Errorf("expected %q =, but got %q", tc.expected, result)
+			}
+		})
+	}
+}
+
+
+

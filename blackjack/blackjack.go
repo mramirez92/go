@@ -1,7 +1,4 @@
 package blackjack
-import (
-	"fmt"
-)
 
  var cards = map[string]int{
 	"two": 2,
@@ -25,8 +22,26 @@ func ParseCard(card string) int {
             return value
         }
     }
-    fmt.Println("not found")
     return -1
+}
+
+// FirstTurn returns the decision for the first turn, given two cards of the
+// player and one card of the dealer.
+func FirstTurn(card1, card2, dealerCard string)string{
+	cardTotal := ParseCard(card1) + ParseCard(card2)
+	dealer := ParseCard(dealerCard)
+	switch{
+	case cardTotal ==22:
+		return "P"
+	case cardTotal == 21:
+		if dealer == 10 || dealer ==11{
+			return "S"
+		}else{
+			return "W"
+		}
+	default:
+	return "H"
+}
 }
 
 
