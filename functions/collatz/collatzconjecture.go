@@ -1,8 +1,7 @@
-package main
+package collatz
 
 import (
     "errors"
-    "fmt"
 )
 
 func CollatzConjecture(n int) (int, error) {
@@ -21,11 +20,11 @@ func CollatzConjecture(n int) (int, error) {
 	return steps, nil
 }
 
-func main() {
-	results, err := CollatzConjecture(2)
-	if err != nil {
-		fmt.Println("Error:", err)
-	} else {
-		fmt.Println("Steps:", results)
-	}
-}
+// func main() {
+// 	results, err := CollatzConjecture(2)
+// 	if err != nil {
+// 		fmt.Println("Error:", err)
+// 	} else {
+// 		fmt.Println("Steps:", results)
+// 	}
+// }
