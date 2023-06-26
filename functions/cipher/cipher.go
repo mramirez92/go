@@ -1,36 +1,28 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"unicode"
+)
 
-var alpha = []rune{
-	'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
-	'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
-	'u', 'v', 'w', 'x', 'y', 'z',
-  }
-
-func Cipher(str string, key int) string {
-	new := ""
+func Cipher(str string, key int) (code string) {
+	shift := key % 26
 	for _, char := range str {
-		found := false
-		for i, r := range alpha {
-			if char == r {
-				i += key
-				if i > 4 {
-					i -= 5
-				}
-				new += string(alpha[i])
-				found = true
-			}
-		}
-		if !found {
-			new += string(char)
+		if unicode.IsLetter(char) {
+			new := char + rune(shift)
+			if unicode.IsLower(char) && new > 122 || unicode.IsUpper(char) && new > 90 {
+				new -= 26
+			} 
+			code += string(new)
+		} else {
+			code += string(char)
 		}
 	}
-	return new
+	return code
 }
 
-func main(){
-	s := "abcd E"
-	fmt.Println(Cipher(s,2))
+func main() {
+	s := "abcz ZX-12!ab3"
+	fmt.Println(Cipher(s, 26))
 
 }
