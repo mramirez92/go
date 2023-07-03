@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strings"
 	"unicode"
 )
 
@@ -21,30 +22,29 @@ func Ceasar(str string, key int) (code string) {
 	return code
 }
 
-func Atbash(str string) []string {
+func Atbash(s string) string {
 	coded := []string{}
 	new := ""
-	for _, char := range str {
-			if len(new) < 5{
-				if unicode.IsLetter(char) {
-					r := 122 - (int(char) - 97)
-					new += string(rune(r))
-				} else if unicode.IsNumber(char) {
-					new += string(char)
-				}
+	for _, char := range strings.ToLower(s) {
+
+		if len(new) < 5 {
+			if unicode.IsLetter(char) {
+				r := 122 - (int(char) - 97)
+				new += string(rune(r))
+			} else if unicode.IsNumber(char) {
+				new += string(char)
 			}
-			if len(new) == 5{
-				coded = append(coded, new)
-				new =""
-			}
-			}
-			if len(new) > 0 {
-				coded = append(coded, new)
-			}
-			return coded
 		}
-
-
+		if len(new) == 5 {
+			coded = append(coded, new)
+			new = ""
+		}
+	}
+	if len(new) > 0 {
+		coded = append(coded, new)
+	}
+	return strings.Join(coded, " ")
+}
 
 func main() {
 	s := "ab1 zyx 5678,"
