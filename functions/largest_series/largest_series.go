@@ -6,10 +6,16 @@ import (
 	"errors"
 )
 
-func Series(code string, digits int) (int64, error) {
+func Series(digits string, span int) (int64, error) {
+	switch{
+	case span <0:
+		return 0, errors.New("span must not be negative")
+	case span >len(digits):
+		return 0, errors.New("span must be smaller than string length")
+	}
 	series := []string{}
-	for i := 0; i <= len(code)-digits; i++ {
-		series = append(series, code[i:i+digits])
+	for i := 0; i <= len(digits)-span; i++ {
+		series = append(series, digits[i:i+span])
 	}
 	return Largest(series)
 }
@@ -35,7 +41,7 @@ func Largest(nums []string) (current int64, e error) {
 }
 
 func main() {
-	nums := "63915"
-	fmt.Println(Series(nums, 3))
+	nums := "12345"
+	fmt.Println(Series(nums, -1))
 	
 }
