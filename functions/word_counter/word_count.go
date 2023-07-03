@@ -14,11 +14,7 @@ func WordCount(phrase string) Frequency {
 	for _, word := range split {
 		if word != "" {
 			w := re.ReplaceAllString(word, "$1")
-			if _, ok := words[w]; ok {
 				words[w] = words[w] + 1
-			} else {
-				words[w] = 1
-			}
 		}
 	}
 	return words
