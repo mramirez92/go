@@ -5,7 +5,6 @@ import (
 	"math"
 	"strconv"
 	"unicode"
-	// "reflect"
 )
 
 func Armstrong(n int) bool {
@@ -24,55 +23,39 @@ func Number(n string) (num string, e bool) {
 		}
 	}
 	l := len(num)
-	switch {
-	case l > 11 || l < 10:
-		return "", true
-	case l == 11:
-		if num[0] == '1' {
-			if num[1] == '1' || num[1] == '0' || num[4] == '1' || num[4] == '0'{
-				return "", true
-			}
-			num = num[1:]
-		}else{
+	if l == 11 && num[0] == '1' {
+		num, l = num[1:], 10
+	}
+	if l == 10 {
+		if num[0] == '1' || num[0] == '0' || num[3] == '1' || num[3] == '0' {
 			return "", true
-		}
-	case l == 10:
-		if num[0] == '1' || num[0] == '0' || num[3] == '1' || num[3] == '0'{
-			return "", true
+		} else {
+			return num, false
 		}
 	}
-	return num, e
-
+	return "", true
 }
 
-func AreaCode(phone string) (string, bool){
-	if n, er := Number(phone); er{
+func AreaCode(phone string) (string, bool) {
+	if n, er := Number(phone); er {
 		return "", true
-	}else{
+	} else {
 		return n[:3], er
 	}
 }
 
-func Format(phone string)(string, bool){
-	if n, er := Number(phone); er{
+func Format(phone string) (string, bool) {
+	if n, er := Number(phone); er {
 		return "", true
-	}else{
+	} else {
 		return fmt.Sprintf("(%s) %s-%s", n[:3], n[3:6], n[6:]), false
 	}
 
 }
 
-
-
 func main() {
-	num := "223 256 9231"
+	num := "223 45a 1234"
 	fmt.Println(Number(num))
 	fmt.Println(AreaCode(num))
 	fmt.Println(Format(num))
-
-	// if num[1] == '1'{
-	// 	fmt.Println("match")
-	// }else{
-	// 	fmt.Println("no match")
-	// }
 }
