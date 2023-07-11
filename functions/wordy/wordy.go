@@ -14,10 +14,9 @@ var ops = map[string]func(int, int) int{
 }
 
 func Answer(q string) (int, bool) {
-	words := []string{}
 	if strings.HasPrefix(q, "What is") && strings.HasSuffix(q, "?") {
 		q = strings.ReplaceAll(q, "by", "")
-		words = strings.Fields(strings.TrimSuffix(strings.TrimPrefix(q, "What is"), "?"))
+		words := strings.Fields(strings.TrimSuffix(strings.TrimPrefix(q, "What is"), "?"))
 		if len(words) > 0 {
 			return Math(words)
 		}
@@ -53,6 +52,5 @@ func Math(w []string) (int, bool) {
 
 func main() {
 	s := "What is 5?"
-	result, success := Answer(s)
-	fmt.Println(result, success) // Output: 4 true
+	fmt.Println(Answer(s))
 }

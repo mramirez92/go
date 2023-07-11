@@ -2,23 +2,25 @@ package main
 
 import (
 	"fmt"
-
 )
 
-
-func Multiples(level, baseVal int) []int{
-	nums := []int{}
-	for i := 1; ; i++ {
-		if baseVal*i < level {
-			nums = append(nums, baseVal*i)	
-			}else{
-				break
+func SumMultiples(limit int, divisors ...int) (total int) {
+	mult := map[int]struct{}{}
+	for _, val := range divisors {
+		if val != 0 {
+			current := val
+			for current < limit {
+				if _, ok := mult[current]; !ok {
+					mult[current] = struct{}{}
+					total += current
+				}
+				current += val
 			}
+		}
 	}
-	return nums
+	return
 }
 
-
 func main() {
-	fmt.Println(Multiples(20, 3))
+	fmt.Println(SumMultiples(7, 3))
 }
