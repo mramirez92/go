@@ -24,12 +24,15 @@ func sides(n int) (c, r int) {
 func split(s string) []string {
 	st := []string{}
 	s = filter(s)
-	c, _ := sides(len(s))
+	c, r := sides(len(s))
 
 	for i:= 0; i < c ; i++{
 		current := ""
 		for j := i; j <= len(s)-1; j+=c{
 			current+=string(s[j])
+		}
+		if len(current)-1 !=r{
+			current += strings.Repeat(" ", r-len(current))
 		}
 		st = append(st, current)
 	}
@@ -37,10 +40,10 @@ func split(s string) []string {
 }
 
 func main() {
-	input := "123456789a"
+	input := "ZOMG! ZOMBIES!!!"
 	// l :=filter(input)
 	// fmt.Println(len(l))
-	// fmt.Println(sides(len(l)))
+	fmt.Println(sides(len(input)))
 	fmt.Println(split(input))
 
 	
