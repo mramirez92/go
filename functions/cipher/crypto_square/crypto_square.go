@@ -13,12 +13,9 @@ func filter(s string) string {
 }
 
 func sides(n int) (c, r int) {
-	square := int(math.Sqrt(float64(n)))
-	c, r = square, square 
-	if (c * r) >= n {
-		return
-	}
-	return c + 1, r
+	c = int(math.Ceil(math.Sqrt(float64(n))))
+	r = int(math.Ceil(float64(n) / float64(c)))
+	return c, r
 }
 
 func split(s string) []string {
@@ -40,7 +37,7 @@ func split(s string) []string {
 }
 
 func main() {
-	input := "ZOMG! ZOMBIES!!!"
+	input := "1"
 	// l :=filter(input)
 	// fmt.Println(len(l))
 	fmt.Println(sides(len(input)))
