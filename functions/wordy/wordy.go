@@ -26,31 +26,54 @@ func Answer(q string) (int, bool) {
 
 func Math(w []string) (int, bool) {
 	// First element isn't a number, return false
-	total, e := strconv.Atoi(w[0])
-	if e != nil {
-		return 0, false
-	}
-
-	for i := 1; i < len(w); i += 2 {
-		if op, ok := ops[w[i]]; ok {
-			if i+1 >= len(w) {
-				return 0, false
-			}
-			// Check next element is a number
-			if num, e := strconv.Atoi(w[i+1]); e == nil {
-				total = op(total, num)
+	if total, e := strconv.Atoi(w[0]); e == nil {
+		for i := 1; i < len(w); i += 2 {
+			if op, ok := ops[w[i]]; ok {
+				if i+1 >= len(w) {
+					return 0, false
+				}
+				// Check next element is a number
+				if num, e := strconv.Atoi(w[i+1]); e == nil {
+					total = op(total, num)
+				} else {
+					return 0, false
+				}
 			} else {
 				return 0, false
 			}
-		} else {
-			return 0, false
 		}
+
+		return total, true
+	}
+	return 0, false
+}
+func M(w []string) (int, bool) {
+	// First element isn't a number, return false
+	total, e := strconv.Atoi(w[0])
+	if e != nil || len(w) == 2{
+		return 0, false
+	}
+		for i := 1; i < len(w); i += 2 {
+			if op, ok := ops[w[i]]; ok { 
+				// if i+1 >= len(w) {
+				// 	return 0, false
+				// }
+				
+				// Check next element is a number
+				if num, e := strconv.Atoi(w[i+1]); e == nil {
+					total = op(total, num)
+				} else {
+					return 0, false
+				}
+			} else {
+				return 0, false
+			}
+		}
+
+		return total, true
 	}
 
-	return total, true
-}
-
 func main() {
-	s := "What is 5?"
+	s := "What is plus?"
 	fmt.Println(Answer(s))
 }

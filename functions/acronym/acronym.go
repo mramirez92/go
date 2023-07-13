@@ -18,8 +18,20 @@ func Abbreviate(s string) (abv string) {
     return 
 }
 
+var log = map[rune]string{'❗': "recommendation", '🔍': "search", '☀': "weather"}
+
+// Application identifies the application emitting the given log.
+func Application(s string) string {
+    for _, char := range s {
+        if val, ok := log[char]; ok{
+            return val
+        }
+    }
+    return "default"
+}
+
 
 func main(){
-	s := "Rolling On The Floor Laughing So Hard That My Dogs Came Over And Licked Me"
-	fmt.Println(Abbreviate(s))
+	s := "❗ help"
+	fmt.Println(Application(s))
 }
