@@ -54,26 +54,6 @@ func Atbash(s string) string {
 	return strings.Join(coded, " ")
 }
 
-func (c shift) Encode(input string) string {
-	input = strings.ToLower(strings.ReplaceAll(input, " ", ""))
-	new := ""
-	for _, char := range input {
-		if unicode.IsLetter(char) {
-			char += rune(c)
-			if char > 122 {
-				char = (char - 122) + 96
-				new += string(char)
-			} else if char < 97 {
-				char = 123 - (97 - char)
-				new += string(char)
-			} else {
-				new += string(char)
-			}
-		}
-	}
-	return new
-}
-
 func NewShift(distance int) Cipher {
 	if distance == 0 || distance > 25 || distance < -25 {
 		return nil
