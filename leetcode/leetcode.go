@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"reflect"
+	"sort"
 	"strings"
 )
 
@@ -141,21 +143,21 @@ func candy(nums []int, add int) []bool {
 }
 
 // *helper function for reversing vowel in string
-func isVowel(char byte) bool{
+func isVowel(char byte) bool {
 	char = strings.ToLower(string(char))[0]
 	return char == 'a' || char == 'e' || char == 'o' || char == 'i' || char == 'u'
 }
 
-func RevVowels(s string) string{
+func RevVowels(s string) string {
 	str := []byte(s)
 	i, j := 0, len(s)-1
 
-	for i < j{
-		if !isVowel(str[i]){
+	for i < j {
+		if !isVowel(str[i]) {
 			i++
-		}else if !isVowel(str[j]){
+		} else if !isVowel(str[j]) {
 			j--
-		}else {
+		} else {
 			str[i], str[j] = str[j], str[i]
 			i++
 			j++
@@ -164,11 +166,35 @@ func RevVowels(s string) string{
 	return string(str)
 }
 
+// *helper function for closeStrings, returns map of letters and slice of letter counts sorted
+
+func count(word string) (map[string]struct{}, []int) {
+    letters := map[string]struct{}{}
+    counts := []int{}
+    for _, char := range word {
+        if _, ok := letters[string(char)]; !ok {
+            letters[string(char)] = struct{}{}
+            counts = append(counts, strings.Count(word, string(char)))
+        }
+    }
+    sort.Ints(counts)
+    return letters, counts
+}
+
+func closeStrings(word1, word2 string) bool {
+    w1, wCount := count(word1)
+    w2, w2Count := count(word2)
+
+    return reflect.DeepEqual(w1, w2) && reflect.DeepEqual(wCount, w2Count)
+}
+
 func main() {
-	nums := []int{2, 3, 5, 1, 3}
-	fmt.Println(candy(nums, 3))
-	fmt.Println(sorted(nums))
-	str := "greAt"
-	fmt.Println(RevVowels(str))
+
+	word := "ab"
+	word2 := "aa"
+	fmt.Println(count(word))
+	fmt.Println(count(word2))
+
+	fmt.Println(closeStrings(word,word2))
 
 }
