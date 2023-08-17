@@ -40,7 +40,7 @@ func main() {
 	inputDigits := []int{1, 0, 1, 0, 1, 0}
 	outputBase := 10
 
-	fmt.Println(Pos(inputBase, inputDigits, outputBase))
-	fmt.Println(Pos(10, []int{0}, 2))
+	fmt.Println(ConvertToBase(inputBase, inputDigits, outputBase))
+	fmt.Println(ConvertToBase(10, []int{0}, 2))
 
 }
