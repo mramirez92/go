@@ -52,6 +52,23 @@ func RansomeNote(note, mag string) bool{
 
 }
 
+func uniqueOccurences(arr []int)bool{
+	counts := map[int]bool{}
+	digits := map[int]int{}
+	for _, num := range arr{
+		digits[num]++
+	}
+
+	for _, v := range digits{
+		if _, ok:= counts[v]; ok{
+			return false
+		}else{
+			counts[v]= true
+		}
+	}
+	return true
+}
+
 func main() {
 
 	mag := "baaab"
@@ -60,8 +77,10 @@ func main() {
 	// fmt.Println(count(word2))
 
 	// fmt.Println(closeStrings(word,word2))
+	nums := []int{1,2}
 	fmt.Println(wordMap(note))
 	fmt.Println(wordMap(mag))
 	fmt.Println(RansomeNote(note, mag))
+	fmt.Println(uniqueOccurences(nums))
 
 }
