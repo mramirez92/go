@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 )
 
 func Max(candies []int, extra int) (greatest []bool) {
@@ -64,12 +65,34 @@ func productExceptSelf(nums []int) []int {
 	return products
 }
 
+// find triples
+
+func increasingTriplet(nums []int) bool {
+	if len(nums) < 3 {
+        return false
+    }
+
+    min1, min2 := math.MaxInt64, math.MaxInt64
+
+    for _, num := range nums {
+        if num <= min1 {
+            min1 = num
+        } else if num <= min2 {
+            min2 = num
+        } else {
+            return true
+        }
+    }
+    return false
+}
+
 func main() {
-	l := []int{1, 2, 3,4}
+	l := []int{5, 4, 3, 2, 1}
 
 	// fmt.Println(Max(l, 1))
 	// fmt.Println(MaxOperations(l, 5))
 	// gain := []int{-4, -3, -2, -1, 4, 3, 2}
 	// fmt.Println(LargestAltitude(gain))
 	fmt.Println(productExceptSelf(l))
+	fmt.Println(increasingTriplet(l))
 }
